@@ -1,11 +1,9 @@
 server {
-    #listen 443 ssl;
-    server_name www.skasmi.com;
+    listen 443 ssl;
 
-    #ssl_certificate /etc/nginx/skasmi.42.en.crt;
-    #ssl_certificate_key /etc/nginx/skasmi.42.en.key;
+    ssl_certificate /etc/nginx/skasmi.42.en.crt;
+    ssl_certificate_key /etc/nginx/skasmi.42.en.key;
 
-    listen 80;
     root /var/www/html;
     index index.html;
 }

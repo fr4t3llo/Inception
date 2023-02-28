@@ -1,0 +1,26 @@
+version: "3"
+services:
+  nginx:
+    build: ./requirements/nginx/
+    image: mynginx
+    ports:
+      - "443:443"
+    depends_on:
+      - mariadb
+    container_name: mynginx
+    restart: on-failure
+
+  mariadb:
+    build:
+      context: .
+      dockerfile: ./requirements/mariadb/Dockerfile
+    image: mydb
+    env_file:
+      - .env
+    networks:
+      - mynetwork
+    container_name: mydb
+    restart: on-failure
+
+networks:
+  mynetwork:
