@@ -4,6 +4,8 @@ RUN apt-get update && apt-get upgrade -y && apt-get install curl -y
 
 RUN apt-get install -y php-fpm php-mysql
 
-COPY ./requirements/wordpress/tools/script.sh  .
+COPY tools/script.sh  .
+
+RUN chmod +x ./script.sh
 
 RUN ["./script.sh"]

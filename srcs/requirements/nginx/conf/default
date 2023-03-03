@@ -6,8 +6,4 @@ server {
 
     root /var/www/html;
     index index.html;
-
-    location #   # {
-        cgi_pass wordpress:9000;
-    }
 }

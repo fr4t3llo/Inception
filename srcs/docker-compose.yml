@@ -1,16 +1,16 @@
 version: "3"
 services:
   nginx:
-    build: ./requirements/nginx/ 
+    build: ./requirements/nginx/
     image: mynginx
     ports:
       - "443:443"
     depends_on:
       - mariadb
     container_name: mynginx
-    restart: on-failure
+    restart: always
     volumes:
-      -vwp: /var/www/html
+      - vwp:/var/www/html
 
   mariadb:
     build:
@@ -22,7 +22,9 @@ services:
     networks:
       - mynetwork
     container_name: mydb
-    restart: on-failure
+    restart: always
+    volumes:
+      - vmd:/var/lib/mysql
   
   wordpress:
     build: ./requirements/wordpress/
@@ -30,15 +32,26 @@ services:
       - mariadb
     image: wordpress
     container_name: wordpress
-    env_file: ../.env
+    env_file: ./.env
     restart: always
     networks:
       - mynetwork
     volumes:
-      -vwp: /var/www/html
+      - vwp:/var/www/html
     
 volumes:
   vwp:
-
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /Users/skasmi/Desktop/data/wordpress
+  vmd:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /Users/skasmi/Desktop/data/mariadb
+      
 networks:
   mynetwork:
