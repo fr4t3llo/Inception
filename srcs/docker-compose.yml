@@ -1,7 +1,7 @@
 version: "3"
 services:
   nginx:
-    build: ./requirements/nginx/
+    build: ./requirements/nginx/ 
     image: mynginx
     ports:
       - "443:443"
@@ -9,6 +9,8 @@ services:
       - mariadb
     container_name: mynginx
     restart: on-failure
+    volumes:
+      -vwp: /var/www/html
 
   mariadb:
     build:
@@ -21,6 +23,22 @@ services:
       - mynetwork
     container_name: mydb
     restart: on-failure
+  
+  wordpress:
+    build: ./requirements/wordpress/
+    depends_on:
+      - mariadb
+    image: wordpress
+    container_name: wordpress
+    env_file: ../.env
+    restart: always
+    networks:
+      - mynetwork
+    volumes:
+      -vwp: /var/www/html
+    
+volumes:
+  vwp:
 
 networks:
   mynetwork:
