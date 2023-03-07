@@ -3,7 +3,20 @@ server {
 
     ssl_certificate /etc/nginx/skasmi.42.en.crt;
     ssl_certificate_key /etc/nginx/skasmi.42.en.key;
+    ssl_protocols TLSv1.3;
 
+    server_name skasmi.42.fr;
     root /var/www/html;
-    index index.html;
+    index index.php;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ .php$ {
+        try_files $uri =404;
+        fastcgi_pass wordpress:9000;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
 }

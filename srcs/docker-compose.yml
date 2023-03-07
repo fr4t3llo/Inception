@@ -6,17 +6,21 @@ services:
     ports:
       - "443:443"
     depends_on:
-      - mariadb
+      - wordpress
     container_name: mynginx
     restart: always
     volumes:
       - vwp:/var/www/html
+    networks:
+      - mynetwork
 
   mariadb:
     build:
       context: .
       dockerfile: ./requirements/mariadb/Dockerfile
     image: mydb
+    ports:
+      - "3306:3306"
     env_file:
       - .env
     networks:
@@ -31,6 +35,9 @@ services:
     depends_on:
       - mariadb
     image: wordpress
+    ports:
+      - "9000:9000"
+    #   - "3306:3306"
     container_name: wordpress
     env_file: ./.env
     restart: always
