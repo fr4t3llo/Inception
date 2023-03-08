@@ -8,9 +8,9 @@ service mysql start
 echo "CREATE DATABASE $DB_NAME;" | mysql -u root 
 echo "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" | mysql -u root
 echo "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$MYSQL_USER'@'%';" | mysql -u root
-echo "FLUSH ALL PRIVILEGES;" | mysql -u root
 echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';" | mysql -u root
+echo "FLUSH ALL PRIVILEGES;" | mysql -u root
 
-kill $(cat /var/run/mysqld/mysqld.pid)
+kill $(cat /var/run/mysqld/mysqld.pid) 
 
 mysqld

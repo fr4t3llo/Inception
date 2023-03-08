@@ -22,7 +22,7 @@ services:
     ports:
       - "3306:3306"
     env_file:
-      - .env
+      - ./.env
     networks:
       - mynetwork
     container_name: mydb
@@ -62,3 +62,10 @@ volumes:
       
 networks:
   mynetwork:
+
+  # error naames of images
+  # bind && bridgs
+  # login website 
+  # docker volume inspect 
+  # error sub admin
+  # how to connect in data base without pass

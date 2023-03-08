@@ -1,8 +1,8 @@
 server {
     listen 443 ssl;
 
-    ssl_certificate /etc/nginx/skasmi.42.en.crt;
-    ssl_certificate_key /etc/nginx/skasmi.42.en.key;
+    ssl_certificate /etc/nginx/skasmi.42.fr.crt;
+    ssl_certificate_key /etc/nginx/skasmi.42.fr.key;
     ssl_protocols TLSv1.3;
 
     server_name skasmi.42.fr;
