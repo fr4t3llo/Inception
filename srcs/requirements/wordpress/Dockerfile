@@ -6,6 +6,6 @@ RUN apt-get install -y php-fpm php-mysql
 
 COPY tools/script.sh  .
 
-RUN chmod +x ./script.sh
+RUN chmod +x script.sh
 
 CMD ["./script.sh"]
