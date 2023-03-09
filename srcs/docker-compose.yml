@@ -2,13 +2,13 @@ version: "3"
 services:
   nginx:
     build: ./requirements/nginx/
-    image: mynginx
+    image: nginx
     ports:
       - "443:443"
     depends_on:
-      - wordpress
-    container_name: mynginx
-    restart: always
+      - mariadb
+    container_name: nginx
+    restart: unless-stopped
     volumes:
       - vwp:/var/www/html
     networks:
@@ -18,15 +18,15 @@ services:
     build:
       context: .
       dockerfile: ./requirements/mariadb/Dockerfile
-    image: mydb
+    image: mariadb
     ports:
       - "3306:3306"
     env_file:
       - ./.env
     networks:
       - mynetwork
-    container_name: mydb
-    restart: always
+    container_name: mariadb
+    restart: unless-stopped
     volumes:
       - vmd:/var/lib/mysql
   
@@ -37,10 +37,9 @@ services:
     image: wordpress
     ports:
       - "9000:9000"
-    #   - "3306:3306"
     container_name: wordpress
     env_file: ./.env
-    restart: always
+    restart: unless-stopped
     networks:
       - mynetwork
     volumes:
@@ -62,9 +61,10 @@ volumes:
       
 networks:
   mynetwork:
+    driver : bridge
 
   # error naames of images
-  # bind && bridgs
+  # bind && bridg
   # login website 
   # docker volume inspect 
   # error sub admin

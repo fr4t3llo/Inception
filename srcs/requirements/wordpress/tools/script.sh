@@ -19,6 +19,6 @@ sed -i -e "s/database_name_here/${DB_NAME}/g" /var/www/html/wp-config.php
 sed -i -e "s/username_here/${MYSQL_USER}/g" /var/www/html/wp-config.php
 sed -i -e "s/localhost/mydb/g" /var/www/html/wp-config.php
 sed -i -e "s/password_here/${MYSQL_PASSWORD}/g" /var/www/html/wp-config.php
-wp core install --url=localhost --title="My Own Website" --admin_user=skasmi --admin_password=123saife --admin_email=saife.addine123@gmail.com --skip-email --allow-root
-wp user create fratello test@gmail.com --role=co_founder --user_pass=123fratello --allow-root
+wp core install --url=localhost --title="My Own Website" --admin_user=skasmi --admin_password=SAIFEsaife123 --admin_email=saife.addine123@gmail.com --skip-email --allow-root
+# wp user create fratello test@gmail.com --role=co_founder --user_pass=123fratello --allow-root
 /usr/sbin/php-fpm7.3 -F
