@@ -57,6 +57,15 @@ services:
     networks:
       - mynetwork
 
+  static_website:
+    build : ./requirements/bonus/website/
+    image: mywebsite
+    ports:
+      - "8080:8080"
+    container_name: static_website
+    restart: unless-stopped
+    networks:
+      - mynetwork
 
 volumes:
   vwp:
@@ -69,6 +78,11 @@ volumes:
       type: none
       o: bind
       device: /Users/skasmi/Desktop/data/mariadb
+  # static_website:
+  #   driver_opts:
+  #     type: none
+  #     o: bind
+  #     device: /Users/skasmi/Desktop/data/website
       
 networks:
   mynetwork:

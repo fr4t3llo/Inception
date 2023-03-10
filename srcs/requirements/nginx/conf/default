@@ -22,16 +22,14 @@ server {
 }
 
 
-#server {                                            
-#    listen 8080;
-#
-#    root /var/www/adminer;
-#    index index.php;
-#
-#    location ~ \.php$ {
-#        fastcgi_pass adminer:100;
-#        fastcgi_index index.php;
-#        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-#        include fastcgi_params;
-#    }
-#}
+server
+{                                            
+    listen 8080;
+
+    root /var/www/html;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
