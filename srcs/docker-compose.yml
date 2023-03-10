@@ -5,13 +5,16 @@ services:
     image: nginx
     ports:
       - "443:443"
+      # - "8080:8080"
     depends_on:
       - mariadb
       - wordpress
+      # - adminer
     container_name: nginx
     restart: unless-stopped
     volumes:
       - vwp:/var/www/html
+      # - adminer:/var/www/adminer
     networks:
       - mynetwork
 
@@ -39,10 +42,22 @@ services:
       - mynetwork
     container_name: mariadb
     restart: unless-stopped
-    volumes:
-      - vmd:/var/lib/mysql
+    # volumes:
+    #   - vmd:/var/lib/mysql
   
-    
+  adminer:
+    depends_on:
+      - mariadb
+    ports: 
+      - "1111:1111"
+    build: ./requirements/bonus/adminer/
+    image: adminer
+    container_name: adminer
+    restart: unless-stopped
+    networks:
+      - mynetwork
+
+
 volumes:
   vwp:
     driver_opts:
