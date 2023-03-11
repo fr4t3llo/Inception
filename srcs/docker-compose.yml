@@ -5,7 +5,6 @@ services:
     image: nginx
     ports:
       - "443:443"
-      # - "8080:8080"
     depends_on:
       - mariadb
       - wordpress
@@ -14,7 +13,6 @@ services:
     restart: unless-stopped
     volumes:
       - vwp:/var/www/html
-      # - adminer:/var/www/adminer
     networks:
       - 13_network
 
@@ -34,8 +32,6 @@ services:
 
   mariadb:
     build: ./requirements/mariadb/
-      # context: .
-      # dockerfile: ./requirements/mariadb/Dockerfile
     image: mariadb
     env_file:
       - ./.env
@@ -91,6 +87,24 @@ services:
       - /sys:/sys:ro
       - /var/lib/docker:/var/lib/docker:ro
 
+  ftp:
+    build: ./requirements/bonus/ftp_server
+    restart: unless-stopped
+    container_name: ftp_server
+    image: ftp_server
+    ports:
+      - "21:21"
+      - "20:20"
+      - "40000-40005:40000-40005"
+    networks:
+      - 13_network
+    env_file:
+      - .env
+    depends_on:
+      - wordpress
+    volumes:
+      - vwp:/Users/skasmi/Desktop/data/ftp
+
 volumes:
   vwp:
     driver_opts:
@@ -116,3 +130,5 @@ networks:
   # error sub admin : ------> fixed
   # how to connect in data base without pass
   # error to run in port 80
+  # your volume -----> /home/skasmi/data
+  # This domain name must be login.42.fr. Again, you have to use your own login.
