@@ -16,18 +16,19 @@ services:
       - vwp:/var/www/html
       # - adminer:/var/www/adminer
     networks:
-      - mynetwork
+      - 13_network
 
   wordpress:
     build: ./requirements/wordpress/
     depends_on:
       - mariadb
+      - redis
     image: wordpress
     container_name: wordpress
     env_file: ./.env
     restart: unless-stopped
     networks:
-      - mynetwork
+      - 13_network
     volumes:
       - vwp:/var/www/html
 
@@ -39,7 +40,7 @@ services:
     env_file:
       - ./.env
     networks:
-      - mynetwork
+      - 13_network
     container_name: mariadb
     restart: unless-stopped
     # volumes:
@@ -55,17 +56,40 @@ services:
     container_name: adminer
     restart: unless-stopped
     networks:
-      - mynetwork
+      - 13_network
 
   static_website:
     build : ./requirements/bonus/website/
     image: mywebsite
     ports:
-      - "8080:8080"
+      - "1024:1024"
     container_name: static_website
     restart: unless-stopped
     networks:
-      - mynetwork
+      - 13_network
+  
+  redis:
+    build: ./requirements/bonus/redis
+    image: redis
+    restart: unless-stopped
+    container_name: redis
+    networks:
+      - 13_network
+  
+  cadvisor:
+    build: ./requirements/bonus/cadvisor
+    image: cadvisor
+    ports:
+      - "2020:2020"
+    restart: unless-stopped
+    container_name: cadvisor
+    networks:
+      - 13_network
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
 
 volumes:
   vwp:
@@ -78,19 +102,17 @@ volumes:
       type: none
       o: bind
       device: /Users/skasmi/Desktop/data/mariadb
-  # static_website:
-  #   driver_opts:
-  #     type: none
-  #     o: bind
-  #     device: /Users/skasmi/Desktop/data/website
       
 networks:
-  mynetwork:
+  13_network:
     driver : bridge
 
-  # error naames of images
-  # bind && bridg
+
+# my errors  
+  # error naames of images : ------> fixed
+  # bind && bridge
   # login website 
   # docker volume inspect 
-  # error sub admin
+  # error sub admin : ------> fixed
   # how to connect in data base without pass
+  # error to run in port 80

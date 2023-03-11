@@ -20,16 +20,3 @@ server {
         include fastcgi_params;
     }
 }
-
-
-server
-{                                            
-    listen 8080;
-
-    root /var/www/html;
-    index index.html;
-
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-}

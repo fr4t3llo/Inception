@@ -23,4 +23,8 @@ sed -i -e "s/username_here/${MYSQL_USER}/g" /var/www/html/wp-config.php
 sed -i -e "s/password_here/${MYSQL_PASSWORD}/g" /var/www/html/wp-config.php
 wp core install --url=https://${DOMAIN_NAME} --title="My Own Website" --admin_user=${MYSQL_USER} --admin_password=${MYSQL_PASSWORD} --admin_email=saife.addine123@gmail.com --allow-root
 wp user create ${AUTHOR_USER} test@gmail.com --role=author --user_pass=${AUTHOR_PASS} --allow-root
+wp plugin install redis-cache --activate --allow-root
+wp plugin update --all --allow-root
+wp theme install twentytwentyone --activate --allow-root
+wp redis enable --allow-root
 /usr/sbin/php-fpm7.3 -F
