@@ -67,6 +67,8 @@ services:
   redis:
     build: ./requirements/bonus/redis
     image: redis
+    ports:
+        - "6379:6379"
     restart: unless-stopped
     container_name: redis
     networks:
@@ -103,32 +105,21 @@ services:
     depends_on:
       - wordpress
     volumes:
-      - vwp:/Users/skasmi/Desktop/data/ftp
+      - vwp:/home/skasmi/
 
 volumes:
   vwp:
     driver_opts:
       type: none
       o: bind
-      device: /Users/skasmi/Desktop/data/wordpress
+      device: /home/skasmi/data/wordpress
   vmd:
     driver_opts:
       type: none
       o: bind
-      device: /Users/skasmi/Desktop/data/mariadb
+      device: /home/skasmi/data/mariadb
       
 networks:
   13_network:
     driver : bridge
 
-
-# my errors  
-  # error naames of images : ------> fixed
-  # bind && bridge
-  # login website 
-  # docker volume inspect 
-  # error sub admin : ------> fixed
-  # how to connect in data base without pass
-  # error to run in port 80
-  # your volume -----> /home/skasmi/data
-  # This domain name must be login.42.fr. Again, you have to use your own login.
