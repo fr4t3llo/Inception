@@ -102,19 +102,19 @@ services:
     depends_on:
       - wordpress
     volumes:
-      - vwp://Users/skasmi/Desktop/data/
+      - vwp:/home/skasmi/
 
 volumes:
   vwp:
     driver_opts:
       type: none
       o: bind
-      device: /Users/skasmi/Desktop/data/wordpress
+      device: /home/skasmi/data/wordpress
   vmd:
     driver_opts:
       type: none
       o: bind
-      device: /Users/skasmi/Desktop/data/mariadb
+      device: /home/skasmi/data/mariadb
       
 networks:
   13_network:
